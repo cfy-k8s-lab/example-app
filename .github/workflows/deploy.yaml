@@ -40,9 +40,13 @@ jobs:
         run:
           cd deployment-repo
 
-          gh pr create \
-            --head "deploy-${{ github.sha }}" \
-            --base "env/sit" \
-            --title "Deploy new version of application" \
-            --body "Updating ArgoCD Application manifest" \
-            --label "automated-pr"
+          curl -X POST -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/cfy-k8s-lab/sandbox1/pulls \
+            -d '{
+              "title": "Deploy new version of application",
+              "body": "Updating ArgoCD Application manifest",
+              "head": "deploy-${{ github.sha }}",
+              "base": "env/sit",
+              "labels": ["automated-pr"]
+            }'

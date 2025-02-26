@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'cfy-k8s-lab/sandbox1'
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           path: 'deployment-repo'
 
       - name: Update ArgoCD Application manifest

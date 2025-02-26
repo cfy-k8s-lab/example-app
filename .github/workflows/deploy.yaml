@@ -21,8 +21,14 @@ jobs:
           cd deployment-repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          touch application.yaml
+          echo "apiVersion: argoproj.io/v1alpha1" >> application.yaml
+          echo "kind: Application" >> application.yaml
+          echo "metadata:" >> application.yaml
+          echo "  name: my-app" >> application.yaml
           git checkout -b deploy-${{ github.sha }}
-          git commit -m "Deployment application ${{ github.sha }}"
+          git add application.yaml
+          git commit --allow-empty -m "Deployment application ${{ github.sha }}"
           git push origin deploy-${{ github.sha }}
 
       - name: Create PR

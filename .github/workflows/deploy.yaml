@@ -37,7 +37,7 @@ jobs:
       - name: Create PR
         env:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run:
+        run: |
           cd deployment-repo
 
           curl -X POST -H "Authorization: token $GH_TOKEN" \

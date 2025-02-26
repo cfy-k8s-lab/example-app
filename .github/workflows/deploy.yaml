@@ -39,6 +39,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run:
           cd deployment-repo
+          
           gh pr create \
             --head deploy-${{ github.sha }} \
             --base env/sit \

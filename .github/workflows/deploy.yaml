@@ -35,12 +35,13 @@ jobs:
           git push origin deploy-${{ github.sha }}
 
       - name: Create PR
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: 'cfy-k8s-lab/sandbox1'
-          title: 'Deploy new version of application'
-          body: 'Updating ArgoCD Application manifest'
-          branch: deploy-${{ github.sha }}
-          base: 'env/sit'
-          labels: 'automated-pr'
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run:
+          gh pr create \
+            --repo cfy-k8s-lab/sandbox1 \
+            --head deploy-${{ github.sha }} \
+            --base env/sit \
+            --title "Deploy new version of application" \
+            --body "Updating ArgoCD Application manifest" \
+            --label "automated-pr"

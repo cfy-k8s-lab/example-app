@@ -39,10 +39,10 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run:
           cd deployment-repo
-          
+
           gh pr create \
-            --head deploy-${{ github.sha }} \
-            --base env/sit \
+            --head "deploy-${{ github.sha }}" \
+            --base "env/sit" \
             --title "Deploy new version of application" \
             --body "Updating ArgoCD Application manifest" \
             --label "automated-pr"
